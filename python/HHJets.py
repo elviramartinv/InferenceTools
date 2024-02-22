@@ -37,7 +37,7 @@ class HHJetsProducer(JetLepMetModule):
         self.year = kwargs.pop("year")
         base_hhbtag = "{}/{}/src/HHTools/HHbtag".format(
             os.getenv("CMT_CMSSW_BASE"), os.getenv("CMT_CMSSW_VERSION"))
-        models = [base_hhbtag + "/models/HHbtag_v1_par_%i" % i for i in range(2)]
+        models = [base_hhbtag + "/models/HHbtag_v2_par_%i" % i for i in range(2)]
 
         self.HHJets = ROOT.HHJetsInterface(models[0], models[1], self.year, isUL)
 
@@ -274,7 +274,7 @@ class HHJetsRDFProducer(JetLepMetSyst):
             self.year = kwargs.pop("year")
             base_hhbtag = "{}/{}/src/HHTools/HHbtag".format(
                 os.getenv("CMT_CMSSW_BASE"), os.getenv("CMT_CMSSW_VERSION"))
-            models = [base_hhbtag + "/models/HHbtag_v1_par_%i" % i for i in range(2)]
+            models = [base_hhbtag + "/models/HHbtag_v2_par_%i" % i for i in range(2)]
 
             ROOT.gInterpreter.Declare("""
                 auto HHJets = HHJetsInterface("%s", "%s", %s, %s);
@@ -286,7 +286,7 @@ class HHJetsRDFProducer(JetLepMetSyst):
                 output get_hh_jets (
                     unsigned long long int event,
                     Vfloat Jet_pt, Vfloat Jet_eta, Vfloat Jet_phi, Vfloat Jet_mass,
-                    VInt Jet_puId, Vfloat Jet_jetId, Vfloat Jet_btagDeepFlavB,
+                    Vfloat Jet_jetId, Vfloat Jet_btagDeepFlavB,
                     Vfloat SubJet_pt, Vfloat SubJet_eta, Vfloat SubJet_phi, Vfloat SubJet_mass,
                     Vfloat FatJet_msoftdrop, VInt FatJet_subJetIdx1, VInt FatJet_subJetIdx2,
                     int pairType, int dau1_index, int dau2_index,
@@ -331,7 +331,7 @@ class HHJetsRDFProducer(JetLepMetSyst):
 
                     return HHJets.GetHHJets(event, pairType,
                         Jet_pt, Jet_eta, Jet_phi, Jet_mass,
-                        Jet_puId, Jet_jetId, Jet_btagDeepFlavB,
+                        Jet_jetId, Jet_btagDeepFlavB,
                         SubJet_pt, SubJet_eta, SubJet_phi, SubJet_mass,
                         FatJet_msoftdrop, FatJet_subJetIdx1, FatJet_subJetIdx2,
                         dau1_pt, dau1_eta, dau1_phi, dau1_mass,
@@ -343,7 +343,7 @@ class HHJetsRDFProducer(JetLepMetSyst):
     def run(self, df):
         df = df.Define("HHJets", "get_hh_jets(event, "
             "Jet_pt{5}, Jet_eta, Jet_phi, Jet_mass{5}, "
-            "Jet_puId, Jet_jetId, Jet_btagDeepFlavB, "
+            "Jet_jetId, Jet_btagDeepFlavB, "
             "SubJet_pt, SubJet_eta, SubJet_phi, SubJet_mass, "
             "FatJet_msoftdrop, FatJet_subJetIdx1, FatJet_subJetIdx2, "
             "pairType, dau1_index, dau2_index, "

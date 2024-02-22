@@ -17,7 +17,7 @@ HHJetsInterface::~HHJetsInterface() {}
 output HHJetsInterface::GetHHJets(
     unsigned long long int event, int pairType,
     fRVec Jet_pt, fRVec Jet_eta, fRVec Jet_phi, fRVec Jet_mass,
-    iRVec Jet_puId, fRVec Jet_jetId, fRVec Jet_btagDeepFlavB,
+    fRVec Jet_jetId, fRVec Jet_btagDeepFlavB,
     fRVec SubJet_pt, fRVec SubJet_eta, fRVec SubJet_phi, fRVec SubJet_mass,
     fRVec FatJet_msoftdrop, iRVec FatJet_subJetIdx1, iRVec FatJet_subJetIdx2,
     float dau1_pt, float dau1_eta, float dau1_phi, float dau1_mass,
@@ -51,7 +51,7 @@ output HHJetsInterface::GetHHJets(
   std::vector <jet_idx_btag> jet_indexes;
   std::vector <int> all_jet_indexes;
   for (size_t ijet = 0; ijet < Jet_pt.size(); ijet++) {
-    if ((Jet_puId[ijet] < 1 && Jet_pt[ijet] <= 50) || Jet_jetId[ijet] < 2)
+    if ((Jet_pt[ijet] <= 50) || Jet_jetId[ijet] < 2)
       continue;
     auto jet_tlv = TLorentzVector();
     jet_tlv.SetPtEtaPhiM(Jet_pt[ijet], Jet_eta[ijet], Jet_phi[ijet], Jet_mass[ijet]);

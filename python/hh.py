@@ -227,7 +227,7 @@ class HHKinFitRDFProducer(JetLepMetSyst):
 
     def run(self, df):
         isMC = ("true" if self.isMC else "false")
-        jet_resolution = "jet_pt_resolution"
+        jet_resolution = "Jet_eta" ######### need to be fixed
         if not self.isMC:
             jet_resolution = "Jet_eta"  # placeholder
         pp = "HH" if not self.isZZAnalysis else "ZZ"
