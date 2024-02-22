@@ -101,9 +101,9 @@ class HHLeptonProducer(JetLepMetModule):
         self.out.branch('dau1_q', 'I')
         self.out.branch('dau1_iso', 'F')
         self.out.branch('dau1_decayMode', 'I')
-        self.out.branch('dau1_idDeepTau2017v2p1VSe', 'I')
-        self.out.branch('dau1_idDeepTau2017v2p1VSmu', 'I')
-        self.out.branch('dau1_idDeepTau2017v2p1VSjet', 'I')
+        self.out.branch('dau1_idDeepTau2018v2p5VSe', 'I')
+        self.out.branch('dau1_idDeepTau2018v2p5VSmu', 'I')
+        self.out.branch('dau1_idDeepTau2018v2p5VSjet', 'I')
 
         self.out.branch('dau2_eta', 'F')
         self.out.branch('dau2_phi', 'F')
@@ -112,9 +112,9 @@ class HHLeptonProducer(JetLepMetModule):
         self.out.branch('dau2_q', 'I')
         self.out.branch('dau2_iso', 'F')
         self.out.branch('dau2_decayMode', 'I')
-        self.out.branch('dau2_idDeepTau2017v2p1VSe', 'I')
-        self.out.branch('dau2_idDeepTau2017v2p1VSmu', 'I')
-        self.out.branch('dau2_idDeepTau2017v2p1VSjet', 'I')
+        self.out.branch('dau2_idDeepTau2018v2p5VSe', 'I')
+        self.out.branch('dau2_idDeepTau2018v2p5VSmu', 'I')
+        self.out.branch('dau2_idDeepTau2018v2p5VSjet', 'I')
         
         self.histo = ROOT.TH1D("InsideHHLepton", "", 21, -1, 20)
         bins = [
@@ -156,8 +156,8 @@ class HHLeptonProducer(JetLepMetModule):
             self.histo.Fill(0)
             goodtaus = []
             for itau, tau in enumerate(taus):
-                if (tau.idDeepTau2017v2p1VSmu < 15 or tau.idDeepTau2017v2p1VSe < 7
-                        or tau.idDeepTau2017v2p1VSjet < 1):
+                if (tau.idDeepTau2018v2p5VSmu < 4 or tau.idDeepTau2018v2p5VSe < 3
+                        or tau.idDeepTau2018v2p5VSjet < 1):
                     continue
                 if abs(tau.dz) > 0.2:
                     continue
@@ -180,7 +180,7 @@ class HHLeptonProducer(JetLepMetModule):
                     self.histo.Fill(3)
                     muontaupair = LeptonTauPair(
                         muon, eval("muon.pt%s" % self.muon_syst), muon.pfRelIso04_all,
-                        tau, eval("tau.pt%s" % self.tau_syst), tau.rawDeepTau2017v2p1VSjet)
+                        tau, eval("tau.pt%s" % self.tau_syst), tau.rawDeepTau2018v2p5VSjet)
                     # if muontaupair.check_charge():
                     muontaupairs.append((imuon, itau, muontaupair))
 
@@ -205,9 +205,9 @@ class HHLeptonProducer(JetLepMetModule):
                 self.out.fillBranch("dau1_q", muon.charge)
                 self.out.fillBranch("dau1_iso", muon.pfRelIso04_all)
                 self.out.fillBranch("dau1_decayMode", -1)
-                self.out.fillBranch("dau1_idDeepTau2017v2p1VSe", -1)
-                self.out.fillBranch("dau1_idDeepTau2017v2p1VSmu", -1)
-                self.out.fillBranch("dau1_idDeepTau2017v2p1VSjet", -1)
+                self.out.fillBranch("dau1_idDeepTau2018v2p5VSe", -1)
+                self.out.fillBranch("dau1_idDeepTau2018v2p5VSmu", -1)
+                self.out.fillBranch("dau1_idDeepTau2018v2p5VSjet", -1)
 
                 self.out.fillBranch("dau2_index", muontaupairs[0][1])
                 self.out.fillBranch("dau2_eta", tau.eta)
@@ -217,9 +217,9 @@ class HHLeptonProducer(JetLepMetModule):
                 self.out.fillBranch("dau2_q", tau.charge)
                 self.out.fillBranch("dau2_iso", tau.rawIso)
                 self.out.fillBranch("dau2_decayMode", tau.decayMode)
-                self.out.fillBranch("dau2_idDeepTau2017v2p1VSe", tau.idDeepTau2017v2p1VSe)
-                self.out.fillBranch("dau2_idDeepTau2017v2p1VSmu", tau.idDeepTau2017v2p1VSmu)
-                self.out.fillBranch("dau2_idDeepTau2017v2p1VSjet", tau.idDeepTau2017v2p1VSjet)
+                self.out.fillBranch("dau2_idDeepTau2018v2p5VSe", tau.idDeepTau2018v2p5VSe)
+                self.out.fillBranch("dau2_idDeepTau2018v2p5VSmu", tau.idDeepTau2018v2p5VSmu)
+                self.out.fillBranch("dau2_idDeepTau2018v2p5VSjet", tau.idDeepTau2018v2p5VSjet)
                 return True
 
         # electron-tau channels
@@ -234,8 +234,8 @@ class HHLeptonProducer(JetLepMetModule):
             self.histo.Fill(5)
             goodtaus = []
             for itau, tau in enumerate(taus):
-                if (tau.idDeepTau2017v2p1VSmu < 15 or tau.idDeepTau2017v2p1VSe < 7
-                        or tau.idDeepTau2017v2p1VSjet < 1):
+                if (tau.idDeepTau2018v2p5VSmu < 4 or tau.idDeepTau2018v2p5VSe < 3
+                        or tau.idDeepTau2018v2p5VSjet < 1):
                     continue
                 if abs(tau.dz) > 0.2:
                     continue
@@ -259,7 +259,7 @@ class HHLeptonProducer(JetLepMetModule):
                     self.histo.Fill(8)
                     electrontaupair = LeptonTauPair(
                         electron, eval("electron.pt%s" % self.electron_syst), electron.pfRelIso03_all,
-                        tau, eval("tau.pt%s" % self.tau_syst), tau.rawDeepTau2017v2p1VSjet)
+                        tau, eval("tau.pt%s" % self.tau_syst), tau.rawDeepTau2018v2p5VSjet)
                     # if electrontaupair.check_charge():
                     electrontaupairs.append((ielectron, itau, electrontaupair))
 
@@ -283,9 +283,9 @@ class HHLeptonProducer(JetLepMetModule):
                 self.out.fillBranch("dau1_q", electron.charge)
                 self.out.fillBranch("dau1_iso", electron.pfRelIso03_all)
                 self.out.fillBranch("dau1_decayMode", -1)
-                self.out.fillBranch("dau1_idDeepTau2017v2p1VSe", -1)
-                self.out.fillBranch("dau1_idDeepTau2017v2p1VSmu", -1)
-                self.out.fillBranch("dau1_idDeepTau2017v2p1VSjet", -1)
+                self.out.fillBranch("dau1_idDeepTau2018v2p5VSe", -1)
+                self.out.fillBranch("dau1_idDeepTau2018v2p5VSmu", -1)
+                self.out.fillBranch("dau1_idDeepTau2018v2p5VSjet", -1)
 
                 self.out.fillBranch("dau2_index", electrontaupairs[0][1])
                 self.out.fillBranch("dau2_eta", tau.eta)
@@ -295,16 +295,16 @@ class HHLeptonProducer(JetLepMetModule):
                 self.out.fillBranch("dau2_q", tau.charge)
                 self.out.fillBranch("dau2_iso", tau.rawIso)
                 self.out.fillBranch("dau2_decayMode", tau.decayMode)
-                self.out.fillBranch("dau2_idDeepTau2017v2p1VSe", tau.idDeepTau2017v2p1VSe)
-                self.out.fillBranch("dau2_idDeepTau2017v2p1VSmu", tau.idDeepTau2017v2p1VSmu)
-                self.out.fillBranch("dau2_idDeepTau2017v2p1VSjet", tau.idDeepTau2017v2p1VSjet)
+                self.out.fillBranch("dau2_idDeepTau2018v2p5VSe", tau.idDeepTau2018v2p5VSe)
+                self.out.fillBranch("dau2_idDeepTau2018v2p5VSmu", tau.idDeepTau2018v2p5VSmu)
+                self.out.fillBranch("dau2_idDeepTau2018v2p5VSjet", tau.idDeepTau2018v2p5VSjet)
 
                 return True
 
         goodtaus = []
         for itau, tau in enumerate(taus):
-            if (tau.idDeepTau2017v2p1VSmu < 1 or tau.idDeepTau2017v2p1VSe < 3
-                    or tau.idDeepTau2017v2p1VSjet < 1):
+            if (tau.idDeepTau2018v2p5VSmu < 1 or tau.idDeepTau2018v2p5VSe < 2
+                    or tau.idDeepTau2018v2p5VSjet < 1):
                 continue
             if abs(tau.dz) > 0.2:
                 continue
@@ -340,8 +340,8 @@ class HHLeptonProducer(JetLepMetModule):
                 self.histo.Fill(12)
                 pass_vbf = int(pass_vbf)
                 tautaupair = LeptonTauPair(
-                    tau1, eval("tau1.pt%s" % self.tau_syst), tau1.rawDeepTau2017v2p1VSjet,
-                    tau2, eval("tau2.pt%s" % self.tau_syst), tau2.rawDeepTau2017v2p1VSjet)
+                    tau1, eval("tau1.pt%s" % self.tau_syst), tau1.rawDeepTau2018v2p5VSjet,
+                    tau2, eval("tau2.pt%s" % self.tau_syst), tau2.rawDeepTau2018v2p5VSjet)
                 # if tautaupair.check_charge():
                 tautaupairs.append((tau1_index, tau2_index, tautaupair, pass_vbf))
 
@@ -366,9 +366,9 @@ class HHLeptonProducer(JetLepMetModule):
             self.out.fillBranch("dau1_q", tau1.charge)
             self.out.fillBranch("dau1_iso", tau1.rawIso)
             self.out.fillBranch("dau1_decayMode", tau1.decayMode)
-            self.out.fillBranch("dau1_idDeepTau2017v2p1VSe", tau1.idDeepTau2017v2p1VSe)
-            self.out.fillBranch("dau1_idDeepTau2017v2p1VSmu", tau1.idDeepTau2017v2p1VSmu)
-            self.out.fillBranch("dau1_idDeepTau2017v2p1VSjet", tau1.idDeepTau2017v2p1VSjet)
+            self.out.fillBranch("dau1_idDeepTau2018v2p5VSe", tau1.idDeepTau2018v2p5VSe)
+            self.out.fillBranch("dau1_idDeepTau2018v2p5VSmu", tau1.idDeepTau2018v2p5VSmu)
+            self.out.fillBranch("dau1_idDeepTau2018v2p5VSjet", tau1.idDeepTau2018v2p5VSjet)
 
             self.out.fillBranch("dau2_index", tautaupairs[0][1])
             self.out.fillBranch("dau2_eta", tau2.eta)
@@ -378,9 +378,9 @@ class HHLeptonProducer(JetLepMetModule):
             self.out.fillBranch("dau2_q", tau2.charge)
             self.out.fillBranch("dau2_iso", tau2.rawIso)
             self.out.fillBranch("dau2_decayMode", tau2.decayMode)
-            self.out.fillBranch("dau2_idDeepTau2017v2p1VSe", tau2.idDeepTau2017v2p1VSe)
-            self.out.fillBranch("dau2_idDeepTau2017v2p1VSmu", tau2.idDeepTau2017v2p1VSmu)
-            self.out.fillBranch("dau2_idDeepTau2017v2p1VSjet", tau2.idDeepTau2017v2p1VSjet)
+            self.out.fillBranch("dau2_idDeepTau2018v2p5VSe", tau2.idDeepTau2018v2p5VSe)
+            self.out.fillBranch("dau2_idDeepTau2018v2p5VSmu", tau2.idDeepTau2018v2p5VSmu)
+            self.out.fillBranch("dau2_idDeepTau2018v2p5VSjet", tau2.idDeepTau2018v2p5VSjet)
 
             return True
         return False
@@ -433,7 +433,7 @@ class HHLeptonRDFProducer(JetLepMetSyst):
         self.runPeriod = runPeriod
         self.isRun3 = kwargs.pop("isRun3", False)
         self.df_filter = df_filter
-        self.deeptau_version = kwargs.pop("deeptau_version", "2017v2p1")
+        self.deeptau_version = kwargs.pop("deeptau_version", "2018v2p5")
         self.isV10 = kwargs.pop("isV10", False)
         vvvl_vsjet = kwargs.pop("vvvl_vsjet")
         vl_vse = kwargs.pop("vl_vse")
@@ -686,7 +686,7 @@ def HHLeptonRDF(**kwargs):
     :param isV10: whether the input sample is from nanoaodV10 (default: ``False``)
     :type isV10: bool
 
-    :param deeptau_version: version of the DeepTau discriminator (default: ``2017v2p1``)
+    :param deeptau_version: version of the DeepTau discriminator (default: ``2018v2p5``)
     :type deeptau_version: str
 
     :param vvvl_vsjet: VVVLoose DeepTauVSjet WP value
