@@ -719,6 +719,7 @@ def HHLeptonRDF(**kwargs):
                 isV10: self.dataset.has_tag("nanoV10")
                 year: self.config.year
                 runPeriod: self.dataset.runPeriod
+                isRun3: self.config.get_aux("isRun3", False)
                 vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
                 vl_vse: self.config.deeptau.vse.VLoose
                 vvl_vse: self.config.deeptau.vse.VVLoose
