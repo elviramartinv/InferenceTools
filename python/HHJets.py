@@ -35,9 +35,11 @@ class HHJetsProducer(JetLepMetModule):
         ROOT.gROOT.ProcessLine(".L {}/interface/HHJetsInterface.h".format(base))
 
         self.year = kwargs.pop("year")
+        self.HHbtag_v = kwargs.pop("HHbtag_v")
         base_hhbtag = "{}/{}/src/HHTools/HHbtag".format(
             os.getenv("CMT_CMSSW_BASE"), os.getenv("CMT_CMSSW_VERSION"))
-        models = [base_hhbtag + "/models/HHbtag_v2_par_%i" % i for i in range(2)]
+        # models = [base_hhbtag + "/models/HHbtag_v1_par_%i" % i for i in range(2)]
+        models = [base_hhbtag + "/models/HHbtag_v{}_par_{}".format(self.HHbtag_v, i) for i in range(2)]
 
         self.HHJets = ROOT.HHJetsInterface(models[0], models[1], self.year, isUL)
 
@@ -272,9 +274,10 @@ class HHJetsRDFProducer(JetLepMetSyst):
             ROOT.gROOT.ProcessLine(".L {}/interface/HHJetsInterface.h".format(base))
 
             self.year = kwargs.pop("year")
+            self.HHbtag_v = kwargs.pop("HHbtag_v")
             base_hhbtag = "{}/{}/src/HHTools/HHbtag".format(
                 os.getenv("CMT_CMSSW_BASE"), os.getenv("CMT_CMSSW_VERSION"))
-            models = [base_hhbtag + "/models/HHbtag_v2_par_%i" % i for i in range(2)]
+            models = [base_hhbtag + "/models/HHbtag_v{}_par_{}".format(self.HHbtag_v, i) for i in range(2)]
 
             ROOT.gInterpreter.Declare("""
                 auto HHJets = HHJetsInterface("%s", "%s", %s, %s);
@@ -395,6 +398,7 @@ def HHJetsRDF(**kwargs):
                 year: self.config.year
                 isMC: self.dataset.process.isMC
                 isUL: self.dataset.has_tag('ul')
+                HHbtag_v: 2
                 filter: True
 
     """
